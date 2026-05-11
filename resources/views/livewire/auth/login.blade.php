@@ -10,15 +10,19 @@
 
             <!-- Email Address -->
             <flux:input
-                name="email"
-                :label="__('Email address')"
-                :value="old('email')"
-                type="email"
+                name="username"
+                :label="__('Username')"
+                value="{{ old('username') }}"
+                type="text"
                 required
                 autofocus
-                autocomplete="email"
-                placeholder="email@example.com"
+                autocomplete="username"
+                placeholder="username"
             />
+
+            @error('username')
+                <p>{{ $message }}</p>
+            @enderror
 
             <!-- Password -->
             <div class="relative">
