@@ -9,9 +9,8 @@
 </ul>
 
 @foreach ($todos as $todo)
-        {{-- @if ($todo->name == Auth) --}}
             <article>
-                {{-- <p>カテゴリ: {{ $todo->category->name }}</p> --}}
+              {{-- <p>カテゴリ: {{ $todo->category->name }}</p> --}}
                 <h3>{{ $todo->title }}</h3>
                 <p>{{ $todo->body }}</p>
 
@@ -33,9 +32,13 @@
                 </form>
                 @endcan
             </article>
-        {{-- @endif --}}
-	@endforeach
+@endforeach
 
+@foreach ($users as $user)
+            <ul>
+              <li>{{ $user->username }}</li>
+            </ul>
+@endforeach
 <p>
     <a href="{{ route('dashboard') }}">ダッシュボードへ戻る</a>
 </p>
