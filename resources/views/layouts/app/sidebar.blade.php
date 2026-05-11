@@ -12,6 +12,9 @@
 <x-navigation />
             <flux:sidebar.nav>
                 <flux:sidebar.group :heading="__('Platform')" class="grid">
+                    @can('view-admin')
+                        <a href="{{ route('admin.dashboard') }}">管理画面</a>
+                    @endcan
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>

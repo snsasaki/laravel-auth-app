@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,5 +27,12 @@ Route::get('/todos/{todo}/edit', [TodoController::class, 'edit'])->name('todos.e
 Route::put('/todos/{todo}', [TodoController::class, 'update'])->name('todos.update');
 Route::delete('/todos/{todo}', [TodoController::class, 'destroy'])->name('todos.destroy');
 
+Route::middleware(['auth', 'can:view-admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])
+            ->name('dashboard');
+    });
 
 require __DIR__ . '/settings.php';
