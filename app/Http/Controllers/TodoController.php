@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Todo;
+use App\Models\User;
 use App\Services\TodoService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -22,13 +23,15 @@ class TodoController extends Controller
 
 	public function index(): View
 	{
-		// $todos = Todo::all();
 
-		$todos = Todo::with('category')
-			->auth()->user()
+		// $todos = Todo::with('category')
+		// 	->latest()
+		// 	->get();
+
+		$todos = auth()->user()
+			->todos()
 			->latest()
 			->get();
-
 
 		return view('todos.index', compact('todos'));
 		//compact('todos') → Viewにデータを渡す
