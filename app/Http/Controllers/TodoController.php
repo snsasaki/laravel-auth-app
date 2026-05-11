@@ -69,17 +69,21 @@ class TodoController extends Controller
 	public function store(Request $request)
 	{
 
-		$request->validate([
+		$validated = $request->validate([
 			'category_id' => ['required', 'exists:categories,id'],
 			'title' => ['required', 'string', 'max:255'],
 			'body' => ['nullable', 'string'],
 			'attachment' => ['nullable', 'file', 'max:2048'],
 		]);
 
-		$this->todoService->create(
-			$request->all(),
-			$request->file('attachment')
-		);
+		// $this->todoService->create(
+		// 	$request->all(),
+		// 	$request->file('attachment')
+		// );
+
+		$request->user()
+			->todos()
+			->create($validated);
 
 		return redirect()
 			->route('todos.index')
@@ -87,6 +91,9 @@ class TodoController extends Controller
 	}
 	public function edit(Todo $todo)
 	{
+
+		$this->authorize('update', $todo);
+
 		$categories = Category::orderBy('name')->get();
 
 		return view('todos.edit', compact('todo', 'categories'));
@@ -114,6 +121,9 @@ class TodoController extends Controller
 	}
 	public function destroy(Todo $todo)
 	{
+
+		$this->authorize('delete', $todo);
+
 		$todo->delete();
 
 		return redirect()->route('todos.index');
