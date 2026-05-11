@@ -14,22 +14,31 @@
 
 ## コマンド集（TBD）
 
-```shell
-$ php artisan serve
-```
+- サーバー起動
 
-```shell
-$ php artisan migrate
-```
+    ```shell
+    $ php artisan serve
+    ```
 
-```shell
-$ php artisan migrate:fresh --seed
-```
+- マイグレーション
 
-```shell
-$ php artisan
-```
+    ```shell
+    $ php artisan migrate
+    ```
 
-```shell
-$ php artisan
-```
+- マイグレーション（データ削除→Seedデータ作成）
+
+    ```shell
+    $ php artisan migrate:fresh --seed
+    ```
+
+- 認証ルート確認
+
+    ```shell
+    $ php artisan route:list -v
+    ```
+
+- TBD
+    ```shell
+    $ php artisan
+    ```
