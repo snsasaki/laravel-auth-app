@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
@@ -40,5 +41,12 @@ Route::middleware(['auth', 'can:view-admin'])
 
 Route::get('/upload', [UploadController::class, 'create'])->name('upload.create');
 Route::post('/upload', [UploadController::class, 'store'])->name('upload.store');
+
+Route::get('/files', [FileController::class, 'index'])
+    ->name('files.index');
+
+Route::get('/files/download/{filename}', [FileController::class, 'download'])
+    ->where('filename', '^[A-Za-z0-9_-][A-Za-z0-9._-]*$')
+    ->name('files.download');
 
 require __DIR__ . '/settings.php';

@@ -15,11 +15,11 @@ class UploadController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
+        $request->validate([
             'file' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
         ]);
 
-        $path = $request->file('file')->store('uploads');
+        $path = $request->file('file')->store('uploads', 'public');
 
         return redirect()
             ->route('upload.create')
