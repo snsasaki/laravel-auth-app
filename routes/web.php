@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\TodoController;
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
@@ -30,9 +31,14 @@ Route::delete('/todos/{todo}', [TodoController::class, 'destroy'])->name('todos.
 Route::middleware(['auth', 'can:view-admin'])
     ->prefix('admin')
     ->name('admin.')
-    ->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])
-            ->name('dashboard');
-    });
+    ->group(
+        function () {
+            Route::get('/', [DashboardController::class, 'index'])
+                ->name('dashboard');
+        }
+    );
+
+Route::get('/upload', [UploadController::class, 'create'])->name('upload.create');
+Route::post('/upload', [UploadController::class, 'store'])->name('upload.store');
 
 require __DIR__ . '/settings.php';
